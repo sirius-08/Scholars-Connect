@@ -1,0 +1,13 @@
+spring.datasource.url=jdbc:postgresql://localhost:5432/authors
+spring.datasource.username=<Your username>
+spring.datasource.password=<Your password>
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.properties.hibernate.format_sql=true
+server.port=3333
+
+spring.data.mongodb.host=localhost
+spring.data.mongodb.database=coAuthor
+spring.data.mongodb.port=27017
+
