@@ -71,3 +71,9 @@ fun getMatrixU(C: Double, M: List<List<INDArray>>, K: Int, Q: INDArray): List<IN
     return U
 }
 
+fun getMatrixSK(C:Double, K:Int, G: List<AuthorNetworkNode>, src: Int): INDArray {
+    var Q = getMatrixQ(G)
+    var U = getMatrixU(C, getMatrixM(C, src, K, Q), K, Q)
+    return U[K].mul(1.0 - C)
+}
+
