@@ -34,21 +34,21 @@ fun getMatrixQ(G: List<AuthorNetworkNode>): INDArray{
     return Q
 }
 
-fun getMatrixM(C: Double, src: Int, K: Int, G: List<AuthorNetworkNode>): List<List<INDArray>> {
-    val q =  Nd4j.zeros(G.size, 1)
+fun getMatrixM(C: Double, src: Int, K: Int, Q:INDArray): List<List<INDArray>> {
+    val q =  Nd4j.zeros(Q.shape()[0], 1)
     q.put(src, 0, 1)
 
     println(q)
 
     var M: MutableList<MutableList<INDArray>> = mutableListOf()
-    var QTranspose = getMatrixQ(G).transpose()
+    var QTranspose = Q.transpose()
 
     println(QTranspose)
 
     for(j in 0..K) {
         M.add(mutableListOf())
         for (i in 0 .. j)
-            M[j].add(Nd4j.zeros(G.size, 1))
+            M[j].add(Nd4j.zeros(Q.shape()[0], 1))
         for(i in j + 1..K + 1) {
 
             var term1 = QTranspose.mmul(M[j][i - 1]).mul(C/2.0)
@@ -60,5 +60,14 @@ fun getMatrixM(C: Double, src: Int, K: Int, G: List<AuthorNetworkNode>): List<Li
     }
 
     return M
+}
+
+fun getMatrixU(C: Double, M: List<List<INDArray>>, K: Int, Q: INDArray): List<INDArray> {
+    var U = mutableListOf<INDArray>(M[K][K + 1])
+    for(i in 1..K) {
+        U.add(M[K - i][K + 1].add(Q.mmul(U[i - 1]).mul(C/2.0)))
+    }
+
+    return U
 }
 
