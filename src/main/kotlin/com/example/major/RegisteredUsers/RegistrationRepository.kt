@@ -10,4 +10,5 @@ interface RegistrationRepository: JpaRepository<User, String> {
     fun findUsersByDepartmentAndOrganization(department: String, organization: String): List<User>
     fun findUserById(id: String): Optional<User>
     fun findUsersByUsernameContainingIgnoreCase(username: String): List<User>
+    fun findUsersByKcore(kcore: Int): List<User>
 }

@@ -29,7 +29,7 @@ class User constructor() {
     var organization: String = ""
     var department: String = ""
     var designation:String = ""
-
+    var kcore: Int = 0
     constructor(id: String, email: String, password: String) : this() {
         this.id = id
         this.password = password
@@ -45,7 +45,7 @@ class User constructor() {
         println("Constructor 2 called")
     }
 
-    constructor(id: String, username: String, password: String, organization: String, department: String, email: String, designation: String) : this() {
+    constructor(id: String, username: String, password: String, organization: String, department: String, email: String, designation: String, kcore: Int) : this() {
         println("Constructor 3 called")
         this.username = username
         this.id = id
@@ -54,6 +54,7 @@ class User constructor() {
         this.password = password
         this.organization = organization
         this.department = department
+        this.kcore = kcore
     }
 
     constructor(username: String, password: String, organization: String, department: String, email: String, designation: String) : this() {
@@ -64,6 +65,7 @@ class User constructor() {
         this.department = department
         this.email = email
         this.designation = designation
+        this.kcore = 0
     }
 
     override fun toString(): String {
