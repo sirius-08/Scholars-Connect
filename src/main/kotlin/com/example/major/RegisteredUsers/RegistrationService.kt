@@ -1,6 +1,7 @@
 package com.example.major.RegisteredUsers
 
 import com.example.major.Networking.NetworkClient
+import com.shapesecurity.salvation2.Values.Hash
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
@@ -49,5 +50,13 @@ class RegistrationService @Autowired constructor(val registrationRepository: Reg
 
     fun getUserByUsername(username: String): List<User> {
         return registrationRepository.findUsersByUsernameContainingIgnoreCase(username)
+    }
+
+    fun getKCoreForUser(id: String): Int {
+        var user = registrationRepository.findUserById(id)
+        if(user.isPresent)
+            return user.get().kcore
+        else
+            return 0
     }
 }

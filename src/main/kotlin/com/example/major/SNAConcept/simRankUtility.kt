@@ -38,12 +38,12 @@ fun getMatrixM(C: Double, src: Int, K: Int, Q:INDArray): List<List<INDArray>> {
     val q =  Nd4j.zeros(Q.shape()[0], 1)
     q.put(src, 0, 1)
 
-    println(q)
+//    println(q)
 
     var M: MutableList<MutableList<INDArray>> = mutableListOf()
     var QTranspose = Q.transpose()
 
-    println(QTranspose)
+//    println(QTranspose)
 
     for(j in 0..K) {
         M.add(mutableListOf())
