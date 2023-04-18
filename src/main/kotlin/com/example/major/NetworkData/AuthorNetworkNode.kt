@@ -3,7 +3,7 @@ package com.example.major.NetworkData
 import org.bson.codecs.pojo.annotations.BsonProperty
 import org.springframework.data.mongodb.core.mapping.Document
 
-@Document("networkMRectified")
+@Document("networkJIITRectified")
 class AuthorNetworkNode constructor() {
     //@Id
     @BsonProperty(value = "_id")
