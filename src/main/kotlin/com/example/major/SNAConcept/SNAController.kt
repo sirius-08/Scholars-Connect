@@ -20,4 +20,9 @@ class SNAController @Autowired constructor(val snaService: SNAService){
     fun getInfluentialAuthors(): List<CollaboratorResult> {
         return snaService.getInfluentialAuthors()
     }
+
+    @GetMapping(path = ["getSimRankScore/{id1}/{id2}"])
+    fun getSimRankScore(@PathVariable("id1") id1: String, @PathVariable("id2") id2: String): Double {
+        return snaService.getSimRankScoreForTwoUsers(id1, id2)
+    }
 }
