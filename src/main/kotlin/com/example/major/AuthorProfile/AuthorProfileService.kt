@@ -16,48 +16,54 @@ class AuthorProfileService {
     fun getBasicProfileInfo(id: String): BasicProfileInfo {
         var basicProfileInfo:BasicProfileInfo = BasicProfileInfo()
         val url = baseUrl + id
-        skrape(HttpFetcher) {
-            request {
-                this.url = url
-            }
-            extract {
-                htmlDocument {
-                    div{
-                        withId = "gsc_prf_in"
-                        findFirst {
-                            //println(this.text)
-                            basicProfileInfo.name = this.text
-                        }
-                    }
-                    div{
-                        withClass = "gsc_prf_il"
-                        findFirst {
-                            //println(this.text)
-                            basicProfileInfo.email = this.text
-                        }
-                    }
-                    div{
-                        withId = "gsc_prf_ivh"
-                        findFirst {
-                            //println(this.text.split("-")[0])
-                            basicProfileInfo.institute = this.text.split("-")[0]
-                        }
-                    }
-                    a {
-                        withClass = "gsc_prf_inta" and "gs_ibl"
-                        findAll {
-                            this.forEach {
-                                //println(it.text)
-                                basicProfileInfo.interest.add(it.text)
+
+        try {
+            skrape(HttpFetcher) {
+                request {
+                    this.url = url
+                }
+                extract {
+                    htmlDocument {
+                        div{
+                            withId = "gsc_prf_in"
+                            findFirst {
+                                //println(this.text)
+                                basicProfileInfo.name = this.text
                             }
                         }
+                        div{
+                            withClass = "gsc_prf_il"
+                            findFirst {
+                                //println(this.text)
+                                basicProfileInfo.email = this.text
+                            }
+                        }
+                        div{
+                            withId = "gsc_prf_ivh"
+                            findFirst {
+                                //println(this.text.split("-")[0])
+                                basicProfileInfo.institute = this.text.split("-")[0]
+                            }
+                        }
+                        a {
+                            withClass = "gsc_prf_inta" and "gs_ibl"
+                            findAll {
+                                this.forEach {
+                                    //println(it.text)
+                                    basicProfileInfo.interest.add(it.text)
+                                }
+                            }
+                        }
+    //                this.select(".gsc_prf_inta.gs_ibl")
+    //                this.se
                     }
-//                this.select(".gsc_prf_inta.gs_ibl")
-//                this.se
                 }
             }
+        } catch (e: it.skrape.selects.ElementNotFoundException) {
+            println("Some element Not Found")
+        } finally {
+            return basicProfileInfo
         }
-        return basicProfileInfo
     }
 
     fun getPublications(id: String): List<Publication> {
