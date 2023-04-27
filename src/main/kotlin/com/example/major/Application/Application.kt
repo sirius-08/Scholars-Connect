@@ -4,29 +4,30 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import org.bson.codecs.pojo.annotations.BsonCreator
 import org.bson.codecs.pojo.annotations.BsonProperty
 import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.Field
 import java.util.UUID
 
 @Document("applications")
 class Application constructor(){
-    @BsonProperty(value = "_id")
+    @Field(value = "_id")
     var id: String = ""
-    @BsonProperty(value = "user_id")
+    @Field(value = "user_id")
     var userId:String = ""
-    @BsonProperty(value = "opening_id")
+    @Field(value = "opening_id")
     var openingId: String = ""
-    @BsonProperty(value = "time_available_per_week")
+    @Field(value = "time_available_per_week")
     var timeAvailablePerWeek: Int = 0
-    @BsonProperty(value = "motivation_for_applying")
+    @Field(value = "motivation_for_applying")
     var motivationForApplying: String = ""
-    @BsonProperty(value = "views_on_the_topic")
+    @Field(value = "views_on_the_topic")
     var viewsOnTheTopic: String = ""
-    @BsonProperty(value = "relevant_work")
+    @Field(value = "relevant_work")
     var relevantWork: String = ""
-    @BsonProperty(value = "sim_rank_score")
+    @Field(value = "sim_rank_score")
     var simRankScore: Double = 0.0
-    @BsonProperty(value = "application_status")
+    @Field(value = "application_status")
     var applicationStatus:ApplicationStatus = ApplicationStatus.UNDER_PROCESSING
-    @BsonProperty(value = "opening_title")
+    @Field(value = "opening_title")
     var openingTitle: String = ""
 
     @BsonCreator
