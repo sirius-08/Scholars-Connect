@@ -29,10 +29,11 @@ class Application constructor(){
     var applicationStatus:ApplicationStatus = ApplicationStatus.UNDER_PROCESSING
     @Field(value = "opening_title")
     var openingTitle: String = ""
+    @Field(value = "k_core_diff")
+    var kCoreDiff: Int = 0
 
-    @BsonCreator
     constructor(id: String, userId: String,openingId: String, timeAvailablePerWeek: Int, viewsOnTheTopic: String, relevantWork: String, simRankScore: Double, applicationStatus: ApplicationStatus,
-        openingTitle: String, motivationForApplying: String): this() {
+        openingTitle: String, motivationForApplying: String, kCoreDiff: Int): this() {
         this.id = id
         this.userId = userId
         this.openingId = openingId
@@ -43,6 +44,7 @@ class Application constructor(){
         this.applicationStatus = applicationStatus
         this.openingTitle = openingTitle
         this.motivationForApplying = motivationForApplying
+        this.kCoreDiff = kCoreDiff
         println("Constructor 2 called")
     }
     @JsonCreator
