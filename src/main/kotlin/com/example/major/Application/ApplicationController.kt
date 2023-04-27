@@ -31,4 +31,15 @@ class ApplicationController @Autowired constructor(var applicationService: Appli
     fun rejectOpening(@PathVariable("id") id: String):  Application {
         return applicationService.rejectOpening(id)
     }
+
+    @PostMapping("editApplication")
+    fun editOpening(@RequestBody application: Application): Application {
+        println(application.id)
+        return applicationService.editOpening(application)
+    }
+
+    @GetMapping("checkApplicationExists")
+    fun checkApplicationExists(@RequestParam userId: String, @RequestParam openingId: String): Boolean {
+        return applicationService.checkApplicationExists(userId, openingId)
+    }
 }

@@ -18,6 +18,7 @@ class SNAController @Autowired constructor(val snaService: SNAService){
 
     @GetMapping(path = ["getInfluentialAuthors"])
     fun getInfluentialAuthors(): List<CollaboratorResult> {
+        println("Influential Authors Request Recieved")
         return snaService.getInfluentialAuthors()
     }
 

@@ -2,6 +2,7 @@ package com.example.major.Application
 
 import com.example.major.OpeningsPosting.OpeningsService
 import com.example.major.SNAConcept.SNAService
+import org.apache.xpath.operations.Bool
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -33,5 +34,14 @@ class ApplicationService @Autowired constructor(var applicationRepository: Appli
         var application = applicationRepository.getApplicationById(id).get()
         application.applicationStatus = ApplicationStatus.REJECTED
         return applicationRepository.save(application)
+    }
+
+    fun editOpening(application: Application): Application {
+        println(application.id)
+        return applicationRepository.save(application)
+    }
+
+    fun checkApplicationExists(userId: String, openingId: String): Boolean {
+        return applicationRepository.getApplicationByUserIdAndOpeningId(userId, openingId).isPresent
     }
 }
