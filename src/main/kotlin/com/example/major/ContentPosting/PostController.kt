@@ -6,6 +6,7 @@ import java.util.UUID
 
 @RestController
 @RequestMapping(path = ["content"])
+@CrossOrigin(origins = ["http://localhost:3000"])
 class PostController @Autowired constructor(var postService: PostService){
     @PostMapping(path = ["addPost"])
     fun addPost(@RequestBody post:Post) {
