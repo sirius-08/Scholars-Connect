@@ -12,27 +12,18 @@ import kotlin.math.abs
 
 @Service
 class OpeningsService @Autowired constructor(var openingsRepository: OpeningsRepository,var registrationService: RegistrationService, var snaService: SNAService){
-    fun postOpening(opening: Opening) {
-        opening.id = UUID.randomUUID().toString()
-        opening.timeOfPosting = System.currentTimeMillis()
+    fun postOpening(opening: Opening): Opening {
         var user = registrationService.getUserById(opening.authorId)
 
         opening.username = user.username
         opening.organization = user.organization
-        openingsRepository.save(opening)
+        return openingsRepository.save(opening)
     }
 
     fun getPostedOpenings(userId: String): List<Opening> {
         return openingsRepository.findAllByAuthorId(userId)
     }
 
-    fun applyToOpening(id: String, userId: String) {
-        var opening = openingsRepository.findOpeningById(id)
-        if(opening.isPresent) {
-            opening.get().applicants.add(registrationService.getUserById(userId))
-            openingsRepository.save(opening.get())
-        }
-    }
 
     fun getIdOfOwner(openingId: String): String {
         return openingsRepository.findOpeningById(openingId).get().authorId
@@ -57,21 +48,21 @@ class OpeningsService @Autowired constructor(var openingsRepository: OpeningsRep
         return openings.sortedWith(compareBy({idToKCore[it.authorId]}, {1000000.0 - idToSimRank[it.authorId]!!}))
     }
 
-    fun getApplicants(id: String, userId: String): List<User> {
-        var applicants = openingsRepository.findOpeningById(id).get().applicants.toMutableList()
-
-        var idToSimRank: HashMap<String, Double> = hashMapOf()
-        var idToKCore: HashMap<String, Int> = hashMapOf()
-
-        var userKCore = registrationService.getKCoreForUser(userId)
-
-        applicants.forEach { it ->
-            if(!idToSimRank.containsKey(it.id)) {
-                idToSimRank[it.id] = snaService.getSimRankScoreForTwoUsers(userId, it.id)
-                idToKCore[it.id] = abs(userKCore - registrationService.getKCoreForUser(it.id))
-            }
-        }
-
-        return applicants.sortedWith(compareBy({idToKCore[it.id]}, {1000000.0 - idToSimRank[it.id]!!}))
-    }
+//    fun getApplicants(id: String, userId: String): List<User> {
+//        var applicants = openingsRepository.findOpeningById(id).get().applicants.toMutableList()
+//
+//        var idToSimRank: HashMap<String, Double> = hashMapOf()
+//        var idToKCore: HashMap<String, Int> = hashMapOf()
+//
+//        var userKCore = registrationService.getKCoreForUser(userId)
+//
+//        applicants.forEach { it ->
+//            if(!idToSimRank.containsKey(it.id)) {
+//                idToSimRank[it.id] = snaService.getSimRankScoreForTwoUsers(userId, it.id)
+//                idToKCore[it.id] = abs(userKCore - registrationService.getKCoreForUser(it.id))
+//            }
+//        }
+//
+//        return applicants.sortedWith(compareBy({idToKCore[it.id]}, {1000000.0 - idToSimRank[it.id]!!}))
+//    }
 }
