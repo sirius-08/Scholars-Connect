@@ -34,6 +34,10 @@ class OpeningsService @Autowired constructor(var openingsRepository: OpeningsRep
         }
     }
 
+    fun getIdOfOwner(openingId: String): String {
+        return openingsRepository.findOpeningById(openingId).get().authorId
+    }
+
     fun getAvailableOpenings(userId: String): List<Opening> {
         var openings:MutableList<Opening> = openingsRepository.findOpeningsByAuthorIdNotLike(userId).toMutableList()
         val idToSimRank: HashMap<String, Double> = hashMapOf()

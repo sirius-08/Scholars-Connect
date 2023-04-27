@@ -1,0 +1,34 @@
+package com.example.major.Application
+
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.*
+
+@RestController
+@CrossOrigin(origins = ["http://localhost:3000"])
+@RequestMapping(path = ["applications"])
+class ApplicationController @Autowired constructor(var applicationService: ApplicationService) {
+    @GetMapping("userApplicationsAll/{id}")
+    fun getUserApplications(@PathVariable("id")id: String): List<Application> {
+        return applicationService.getUserApplications(id)
+    }
+
+    @GetMapping("openingApplicationsAll/{id}")
+    fun getOpeningApplications(@PathVariable("id")id: String): List<Application> {
+        return applicationService.getOpeningApplications(id)
+    }
+
+    @PostMapping("applyToOpening")
+    fun applyToOpening(@RequestBody application: Application): Application {
+        return applicationService.applyToOpening(application)
+    }
+
+    @GetMapping("acceptApplication/{id}")
+    fun acceptOpening(@PathVariable("id") id: String): Application {
+        return applicationService.acceptOpening(id)
+    }
+
+    @GetMapping("rejectApplication/{id}")
+    fun rejectOpening(@PathVariable("id") id: String):  Application {
+        return applicationService.rejectOpening(id)
+    }
+}
