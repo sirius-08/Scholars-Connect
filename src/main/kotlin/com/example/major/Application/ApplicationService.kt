@@ -28,6 +28,8 @@ class ApplicationService @Autowired constructor(var applicationRepository: Appli
         var ownerId: String = openingsService.getIdOfOwner(application.openingId)
         application.simRankScore = snaService.getSimRankScoreForTwoUsers(application.userId, ownerId)
         application.kCoreDiff = abs(registrationService.getKCoreForUser(application.userId) - registrationService.getKCoreForUser(ownerId))
+        application.username = registrationService.getUserById(application.userId).username
+        application.openingTitle = openingsService.getOpeningById(application.openingId).title
         return applicationRepository.save(application)
     }
 

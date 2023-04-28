@@ -48,6 +48,9 @@ class OpeningsService @Autowired constructor(var openingsRepository: OpeningsRep
         return openings.sortedWith(compareBy({idToKCore[it.authorId]}, {1000000.0 - idToSimRank[it.authorId]!!}))
     }
 
+    fun getOpeningById(id: String): Opening {
+        return openingsRepository.findOpeningById(id).get()
+    }
 //    fun getApplicants(id: String, userId: String): List<User> {
 //        var applicants = openingsRepository.findOpeningById(id).get().applicants.toMutableList()
 //

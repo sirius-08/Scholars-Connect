@@ -31,9 +31,13 @@ class Application constructor(){
     var openingTitle: String = ""
     @Field(value = "k_core_diff")
     var kCoreDiff: Int = 0
+    @Field(value = "time_submitted")
+    var timeSubmitted: Long = 0
+    @Field(value = "username")
+    var username: String = ""
 
     constructor(id: String, userId: String,openingId: String, timeAvailablePerWeek: Int, viewsOnTheTopic: String, relevantWork: String, simRankScore: Double, applicationStatus: ApplicationStatus,
-        openingTitle: String, motivationForApplying: String, kCoreDiff: Int): this() {
+        openingTitle: String, motivationForApplying: String, kCoreDiff: Int, timeSubmitted: Long, username: String): this() {
         this.id = id
         this.userId = userId
         this.openingId = openingId
@@ -45,10 +49,12 @@ class Application constructor(){
         this.openingTitle = openingTitle
         this.motivationForApplying = motivationForApplying
         this.kCoreDiff = kCoreDiff
+        this.timeSubmitted = timeSubmitted
+        this.username = username
         println("Constructor 2 called")
     }
     @JsonCreator
-    constructor(userId: String,openingId: String, timeAvailablePerWeek: Int, viewsOnTheTopic: String, relevantWork: String, openingTitle: String,
+    constructor(userId: String,openingId: String, timeAvailablePerWeek: Int, viewsOnTheTopic: String, relevantWork: String,
                 motivationForApplying: String): this() {
         this.id = UUID.randomUUID().toString()
         this.userId = userId
@@ -57,8 +63,9 @@ class Application constructor(){
         this.viewsOnTheTopic = viewsOnTheTopic
         this.relevantWork = relevantWork
         //this.applicationStatus = ApplicationStatus.UNDER_PROCESSING
-        this.openingTitle = openingTitle
+        //this.openingTitle = openingTitle
         this.motivationForApplying = motivationForApplying
+        this.timeSubmitted = System.currentTimeMillis()
         println("Constructor called with opening Id " + this.openingId + " application id " + this.id)
     }
 }

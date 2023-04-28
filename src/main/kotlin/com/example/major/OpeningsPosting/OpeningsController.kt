@@ -23,4 +23,9 @@ class OpeningsController @Autowired constructor(var openingsService: OpeningsSer
         return openingsService.getAvailableOpenings(userId)
     }
 
+    @GetMapping(path = ["openings/{id}"])
+    fun getOpeningById(@PathVariable("id") id: String): Opening {
+        return openingsService.getOpeningById(id)
+    }
+
 }
