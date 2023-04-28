@@ -1,5 +1,6 @@
 package com.example.major.Application
 
+import com.example.major.CitationsAndPapers.ExcelData
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -41,5 +42,10 @@ class ApplicationController @Autowired constructor(var applicationService: Appli
     @GetMapping("checkApplicationExists")
     fun checkApplicationExists(@RequestParam userId: String, @RequestParam openingId: String): Boolean {
         return applicationService.checkApplicationExists(userId, openingId)
+    }
+
+    @GetMapping("applicantsCitationsData/{openingId}")
+    fun getApplicantsCitationsData(@PathVariable("openingId") openingId: String): List<ExcelData> {
+        return applicationService.getApplicantsCitationsData(openingId)
     }
 }
